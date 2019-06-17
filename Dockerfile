@@ -3,5 +3,5 @@ FROM scratch
 EXPOSE 514
 EXPOSE 514/udp
 
-COPY syslog-cloudwatch-bridge /
+COPY . /
 CMD ["/syslog-cloudwatch-bridge"]
