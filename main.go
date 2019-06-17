@@ -60,6 +60,9 @@ func main() {
 	go func(channel syslog.LogPartsChannel) {
 		for logParts := range channel {
 			sendToCloudWatch(logParts)
+			// PutLogEvents can be called 5 times per second, this avoids Rate Limit Exception
+			// https://docs.aws.amazon.com/pt_br/AmazonCloudWatch/latest/logs/cloudwatch_limits_cwl.html
+			time.Sleep(200 * time.Millisecond)
 		}
 	}(channel)
 
